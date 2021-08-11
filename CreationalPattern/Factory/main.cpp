@@ -5,17 +5,20 @@
 #include<ctime>
 
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 class Human
 {
 	unsigned int hp;
-	unsigned int demage;
+	unsigned int damage;
 	unsigned int armor;
 public:
-	Human(unsigned int hp, unsigned int demage, unsigned int armor)
+	Human(unsigned int hp, unsigned int damage, unsigned int armor)
 	{
 		this->hp = hp;
-		this->demage = demage;
+		this->damage = damage;
 		this->armor = armor;
 	}
 	virtual ~Human()
@@ -29,7 +32,7 @@ public:
 		cout << typeid(* this).name() << endl;
 		cout << "    hp: " << hp << "\t";
 		cout << " armor: " << armor << "\t";
-		cout << "demage: " << demage << "\n";
+		cout << "damage: " << damage << "\n";
 	}
 };
 
@@ -107,6 +110,101 @@ Human* humanFactory(HumanType human_type)
 	}
 }
 
+enum MovingOn
+{
+	Earth,
+	Water,
+	Air
+};
+
+class Transport
+{
+	unsigned int hp;
+	unsigned int damage;
+	unsigned int speed;
+	MovingOn moving_on;
+
+public:
+	Transport(unsigned int hp, unsigned int damage, unsigned int speed, MovingOn moving_on)
+	{
+		this->hp = hp;
+		this->damage = damage;
+		this->speed = speed;
+		this->moving_on = moving_on;
+	}
+	virtual ~Transport()
+	{
+		cout << "Transport dematerialise\n";
+	}
+	virtual void info() const
+	{
+		cout << "\n---------------------------------------------------------\n";
+		cout << typeid(*this).name() << endl;
+		cout << "    hp: " << hp << "\t";
+		cout << "damage: " << damage << "\n";
+		cout << " speed: " << speed << "\n";
+	}
+};
+
+class Car : public Transport
+{
+public:
+	Car(unsigned int hp, unsigned int damage, unsigned int speed, MovingOn moving_on):Transport(hp,damage,speed,moving_on) { }
+	~Car() { }
+	void info()const
+	{
+		Transport::info();
+		cout << "moving: " << "по земле" << "\n";
+	}
+};
+
+class Plane : public Transport
+{
+public:
+	Plane(unsigned int hp, unsigned int damage, unsigned int speed, MovingOn moving_on):Transport(hp,damage,speed,moving_on) { }
+	~Plane() { }
+	void info()const
+	{
+		Transport::info();
+		cout << "moving: " << "по воздуху" << "\n";
+	}
+
+};
+
+class Boat : public Transport
+{
+public:
+	Boat(unsigned int hp, unsigned int damage, unsigned int speed, MovingOn moving_on):Transport(hp,damage,speed,moving_on) { }
+	~Boat() { }
+	void info()const
+	{
+		Transport::info();
+		cout << "moving: " << "по воде" << "\n";
+	}
+};
+
+enum TransportType
+{
+	Car,
+	Plane,
+	Boat
+};
+
+Transport* transportFactory(TransportType transport_type)
+{
+	switch (transport_type)
+	{
+	case Car:
+		return new class Car(100, rand() % 20 + 40, rand() % 50 + 70, Earth);
+		break;
+	case Plane:
+		return new class Plane(100, 100, rand() % 50 + 70, Air);
+		break;
+	case Boat:
+		return new class Plane(100, rand() % 20 + 20, rand() % 20 + 30, Water);
+		break;
+	}
+}
 //#define FACTORY_CHECK_1
 
 void main()
@@ -126,6 +224,8 @@ void main()
 #endif // FACTORY_CHECK_1
 
 	const int n = 10;
+
+	cout << "\n:: Human ::\n";
 	Human* human[n]{};
 	unsigned int traveller_count = 0;
 	unsigned int policeOfficer_count = 0;
@@ -135,10 +235,15 @@ void main()
 	{
 		human[i] = humanFactory(HumanType(rand() % 3));
 		human[i]->info();
-		if (typeid(*human[i]) == typeid(Traveller)) traveller_count++;
-		if (typeid(*human[i]) == typeid(PoliceOfficer)) policeOfficer_count++;
-		if (typeid(*human[i]) == typeid(Bandit)) bandit_count++;
+
+		//if (typeid(*human[i]) == typeid(Traveller)) traveller_count++;
+		//if (typeid(*human[i]) == typeid(PoliceOfficer)) policeOfficer_count++;
+		//if (typeid(*human[i]) == typeid(Bandit)) bandit_count++;
 	}
+
+	cout << typeid(*human[0]).name() << endl;
+	cout << typeid(Traveller).name() << endl;
+
 	cout << "    traveller: " << traveller_count << "\t";
 	cout << "policeOfficer: " << policeOfficer_count << "\t";
 	cout << "       bandit: " << bandit_count << endl;
@@ -146,4 +251,29 @@ void main()
 	{
 		delete human[i];
 	}
+
+	cout << "\n:: Transport ::\n";
+	Transport* transport[n]{};
+	unsigned int car_count = 0;
+	unsigned int plane_count = 0;
+	unsigned int boat_count = 0;
+
+	for (int i = 0; i < n; i++)
+	{
+		transport[i] = transportFactory(TransportType(rand() % 3));
+		transport[i]->info();
+		//if (typeid(*transport[i]) == typeid(Car)) car_count++;
+		//if (typeid(*transport[i]) == typeid(Plane)) plane_count++;
+		//if (typeid(*transport[i]) == typeid(Boat)) boat_count++;
+	}
+
+	cout << "  car_count: " << car_count << "\t";
+	cout << "plane_count: " << plane_count << "\t";
+	cout << " boat_count: " << boat_count << endl;
+
+	for (int i = 0; i < n; i++)
+	{
+		delete transport[i];
+	}
+
 }
