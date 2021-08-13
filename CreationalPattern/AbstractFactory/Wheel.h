@@ -7,7 +7,7 @@ class Wheel
 {
 	//  Абстрактный класс описывающий колёса
 protected:
-		unsigned int diameter;
+	unsigned int diameter;
 public:
 	Wheel(unsigned int diameter) : diameter(diameter) { }
 	virtual ~Wheel() { }
@@ -16,15 +16,15 @@ public:
 
 	void info() const
 	{
-		cout  << typeid(*this).name() << ";   diameter: " << diameter << " inch\n";
+		cout << typeid(*this).name() << ";   diameter: " << diameter << " inch\n";
 	}
 };
 
-class SportWheel:public Wheel
+class SportWheel :public Wheel
 {
 	//  Класс описывающий 'Колёса для спорткара'
 public:
-	SportWheel(): Wheel(26) { }
+	SportWheel() : Wheel(26) { }
 	~SportWheel() { }
 	unsigned int get_diametr() const
 	{
@@ -32,11 +32,11 @@ public:
 	}
 };
 
-class TruckWheel:public Wheel
+class TruckWheel :public Wheel
 {
 	//  Класс описывающий 'Колёса для грузовика'
 public:
-	TruckWheel(): Wheel(24) { }
+	TruckWheel() : Wheel(24) { }
 	~TruckWheel() { }
 	unsigned int get_diametr() const
 	{
@@ -44,11 +44,11 @@ public:
 	}
 };
 
-class SuvWheel:public Wheel
+class SuvWheel :public Wheel
 {
 	//  Класс описывающий 'Колёса для вездехода'
 public:
-	SuvWheel(): Wheel(22) { }
+	SuvWheel() : Wheel(22) { }
 	~SuvWheel() { }
 	unsigned int get_diametr() const
 	{

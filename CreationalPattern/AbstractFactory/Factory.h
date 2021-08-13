@@ -47,3 +47,21 @@ public:
 		return new TruckWheel;
 	}
 };
+
+class SuvFactory :public AbstractFactory
+{
+	//	Фабрика по производству 'Вездеходов'
+public:
+	Engine* createEngine()
+	{
+		return new SuvEngine;
+	}
+	Tank* createTank()
+	{
+		return new SuvTank;
+	}
+	Wheel* createWheel()
+	{
+		return new SuvWheel;
+	}
+};

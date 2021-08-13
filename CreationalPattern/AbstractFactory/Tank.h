@@ -43,3 +43,15 @@ public:
 		return this->volume;
 	}
 };
+
+class SuvTank :public Tank
+{
+	//  Класс описывающий 'Бак для вездехода'
+public:
+	SuvTank() :Tank(500) { }
+	~SuvTank() { }
+	unsigned int get_volume()const
+	{
+		return this->volume;
+	}
+};

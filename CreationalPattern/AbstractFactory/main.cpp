@@ -1,7 +1,7 @@
 ﻿/*
 TODO:
 1. [x] Добавить на фабрику производство колес;
-2. [ ] Фабрика должна начать производство внедорожников;
+2. [x] Фабрика должна начать производство внедорожников;
 */
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -60,6 +60,29 @@ public:
 	}
 };
 
+class Suv
+{
+	//  Класс описывающий 'Вездеход'
+	Engine* engine;
+	Tank* tank;
+	Wheel* wheel;
+public:
+	Suv(SuvFactory* factory)
+	{
+		this->engine = factory->createEngine();
+		this->tank = factory->createTank();
+		this->wheel = factory->createWheel();
+	}
+	~Suv() { }
+
+	void info() const
+	{
+		engine->info();
+		tank->info();
+		wheel->info();
+	}
+};
+
 void main()
 {
 	setlocale(LC_ALL, "ru-RU");
@@ -73,5 +96,10 @@ void main()
 	cout << ":: Truck ::" << endl;
 	Truck hugle(new TruckFactory);
 	hugle.info();
+	cout << endl;
+
+	cout << ":: Suv ::" << endl;
+	Suv jeep(new SuvFactory);
+	jeep.info();
 	cout << endl;
 }

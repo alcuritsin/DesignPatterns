@@ -44,3 +44,16 @@ public:
 		return this->power;
 	}
 };
+
+class SuvEngine :public Engine
+{
+	//  Класс описывающий 'Дигатель для внедорожника'
+public:
+	SuvEngine() :Engine(750) { }
+	~SuvEngine() { }
+
+	unsigned int get_power()const
+	{
+		return this->power;
+	}
+};
