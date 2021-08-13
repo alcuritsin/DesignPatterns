@@ -1,20 +1,20 @@
 #pragma once
-#include <iostream>
 
 #include "Engine.h"
 #include "Tank.h"
-
-using namespace std;
+#include "Wheel.h"
 
 class AbstractFactory
 {
 public:
 	virtual Engine* createEngine() = 0;
 	virtual Tank* createTank() = 0;
+	virtual Wheel* createWheel() = 0;
 };
 
 class SportCarFactory :public AbstractFactory
 {
+	//	Фабрика по производству 'Спорткаров'
 public:
 	Engine* createEngine()
 	{
@@ -24,10 +24,15 @@ public:
 	{
 		return new SportTank;
 	}
+	Wheel* createWheel()
+	{
+		return new SportWheel;
+	}
 };
 
 class TruckFactory :public AbstractFactory
 {
+	//	Фабрика по производству 'Грузовиков'
 public:
 	Engine* createEngine()
 	{
@@ -36,5 +41,27 @@ public:
 	Tank* createTank()
 	{
 		return new TruckTank;
+	}
+	Wheel* createWheel()
+	{
+		return new TruckWheel;
+	}
+};
+
+class SuvFactory :public AbstractFactory
+{
+	//	Фабрика по производству 'Вездеходов'
+public:
+	Engine* createEngine()
+	{
+		return new SuvEngine;
+	}
+	Tank* createTank()
+	{
+		return new SuvTank;
+	}
+	Wheel* createWheel()
+	{
+		return new SuvWheel;
 	}
 };
