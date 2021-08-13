@@ -5,6 +5,7 @@ using namespace std;
 
 class Engine
 {
+	//  Абстрактный класс описывающий двигатель
 protected:
 	unsigned int power;
 public:
@@ -18,10 +19,11 @@ public:
 	}
 };
 
-class SportEngine:public Engine
+class SportEngine :public Engine
 {
+	//  Класс описывающий 'Спортивный жвигатель'
 public:
-	SportEngine(): Engine(500) { }
+	SportEngine() : Engine(500) { }
 	~SportEngine() { }
 
 	unsigned int get_power()const
@@ -32,6 +34,7 @@ public:
 
 class TruckEngine :public Engine
 {
+	//  Класс описывающий 'Двигатель для грузовика'
 public:
 	TruckEngine() :Engine(1000) { }
 	~TruckEngine() { }
