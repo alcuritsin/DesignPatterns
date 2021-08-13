@@ -135,9 +135,9 @@ void main()
 	{
 		human[i] = humanFactory(HumanType(rand() % 3));
 		human[i]->info();
-		if (typeid(*human[i]) == typeid(Traveller)) traveller_count++;
-		if (typeid(*human[i]) == typeid(PoliceOfficer)) policeOfficer_count++;
-		if (typeid(*human[i]) == typeid(Bandit)) bandit_count++;
+		if (typeid(*human[i]) == typeid(class Traveller)) traveller_count++;
+		if (typeid(*human[i]) == typeid(class PoliceOficer)) policeOfficer_count++;
+		if (typeid(*human[i]) == typeid(class Bandit)) bandit_count++;
 	}
 	cout << "    traveller: " << traveller_count << "\t";
 	cout << "policeOfficer: " << policeOfficer_count << "\t";
